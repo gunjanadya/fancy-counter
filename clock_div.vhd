@@ -52,9 +52,8 @@ begin
         if (unsigned(count) < 62499999) then
             count <= std_logic_vector(unsigned(count) + 1);
             nbl <= '0';            
-        elsif (unsigned(count) = 62499999) then
-            nbl <= '1';
-        else 
+        else
+            nbl <= '1'; 
             count <= (others => '0');
 
         end if;
