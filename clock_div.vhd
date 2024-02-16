@@ -42,7 +42,7 @@ end clock_div;
 architecture Behavioral of clock_div is
 
   signal count   : std_logic_vector (26 downto 0) := (others => '0');
-  signal nbl     : std_logic := '1';
+  signal nbl     : std_logic := '0';
 
 begin
 process(clk) 
@@ -50,11 +50,13 @@ begin
     if rising_edge(clk) then
     
         if (unsigned(count) < 62499999) then
-            count <= (others => '0');
-            nbl <= '0';            
-        else 
             count <= std_logic_vector(unsigned(count) + 1);
+            nbl <= '0';            
+        elsif (unsigned(count) = 62499999) then
             nbl <= '1';
+        else 
+            count <= (others => '0');
+
         end if;
     end if;
 end process;
