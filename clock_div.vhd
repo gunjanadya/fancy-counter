@@ -33,36 +33,31 @@ use ieee.numeric_std.all;
 --use UNISIM.VComponents.all;
 
 entity clock_div is
-port (
-  clk : in std_logic;
-  cnt : out std_logic
-);
+    port (
+      clk : in std_logic;
+      cnt : out std_logic
+    );
 end clock_div;
 
 architecture Behavioral of clock_div is
 
-  signal count : std_logic_vector (26 downto 0) := (others => '0');
+  signal count   : std_logic_vector (26 downto 0) := (others => '0');
+  signal nbl     : std_logic := '1';
 
 begin
-  
-  process(clk) begin
-    count <= "000000000000000000000000000";
+process(clk) 
+begin
     if rising_edge(clk) then
-
+    
         if (unsigned(count) < 62499999) then
-            cnt <= '0';
-            count <= std_logic_vector(unsigned(count) + 1);
-            
-        --elsif (unsigned(count) = 62499999) then
-            
-        else 
-            cnt  <= '1';
             count <= (others => '0');
-            
+            nbl <= '0';            
+        else 
+            count <= std_logic_vector(unsigned(count) + 1);
+            nbl <= '1';
         end if;
-
-
     end if;
-  end process;
+end process;
+cnt <= nbl;
 
 end Behavioral;

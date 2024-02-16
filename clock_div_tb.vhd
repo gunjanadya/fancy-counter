@@ -55,13 +55,13 @@ begin
 
     clk_gen_proc: process
     begin
-    
+
         wait for 4 ns;
-        tb_cnt <= '1';
+        tb_clk <= '1';
         
         wait for 4 ns;
-        tb_cnt <= '0';
-    
+        tb_clk <= '0';
+
     end process clk_gen_proc;
 dut : clock_div
 port map (
