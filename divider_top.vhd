@@ -59,10 +59,8 @@ architecture behavioral of divider_top is
     
    process(clk)
    begin
-       if(rising_edge(clk)) then
-           if div='1' then
-               led_i <= not led_i;
-           end if;
+       if(rising_edge(clk) AND div='1') then
+           led_i <= not led_i;
        end if;
    end process;
    led0 <= led_i;     
