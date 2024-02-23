@@ -47,8 +47,8 @@ end fancy_counter;
 
 architecture Behavioral of fancy_counter is
     signal count     : std_logic_vector (3 downto 0) := (others => '0');
-    signal direction : std_logic                      := '0';
-    signal value     : std_logic_vector (3 downto 0)  := (others => '0');
+    signal direction : std_logic                     := '0';
+    signal value     : std_logic_vector (3 downto 0) := (others => '0');
 
 begin
 process (clk)
@@ -56,28 +56,29 @@ begin
     if rising_edge(clk) then
         if en = '1' then
             if rst = '1' then
-                cnt <= (others=>'0');
+                count <= (others=>'0');
             end if;
-            if clk_en = '0' then
+            if clk_en = '1' then
                 if ld = '1' then
                     value <= val;
                 end if;
                 if updn = '1' then
                     direction <= dir;
-                    if direction = '1' then
-                        count <= std_logic_vector(unsigned(count) + 1);
-                        if(count = value) then
-                            count <= "0000";
-                        end if;
-                    else
-                        count <= std_logic_vector(unsigned(count) - 1);
-                        if(count = "0000") then
-                            count <= value;
-                        end if;
+                end if;
+                if direction = '1' then
+                    count <= std_logic_vector(unsigned(count) + 1);
+                    if(count = value) then
+                        count <= "0000";
+                    end if;
+                else
+                    count <= std_logic_vector(unsigned(count) - 1);
+                    if(count = "0000") then
+                        count <= value;
                     end if;
                 end if;
             end if;
         end if;
+        cnt <= count;
     end if;
 end process;
 end Behavioral;
