@@ -35,7 +35,7 @@ use ieee.numeric_std.all;
 entity clock_div is
     port (
       clk : in std_logic;
-      cnt : out std_logic
+      div : out std_logic
     );
 end clock_div;
 
@@ -59,6 +59,6 @@ begin
         end if;
     end if;
 end process;
-cnt <= nbl;
+div <= nbl;
 
 end Behavioral;
